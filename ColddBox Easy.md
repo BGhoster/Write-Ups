@@ -20,7 +20,9 @@ nmap -p- -A 10.10.250.171 -T5
 4512: ssh
 ## Usernames/passwords
 Hugo
+
 C0ldd:9876543210
+
 Philip
 
 
@@ -70,7 +72,7 @@ We will be using header.php and uploading pentest monkey reverse shell.
 http://10.10.64.128/wp-content/themes/twentyfifteen/header.php
 ```
 Visiting the site starts the reverse shell.
-# Upgrading shell (MAKE A DOC FOR THIS)
+# Upgrading shell
 ```
 python3 -c 'import pty;pty.spawn("/bin/bash")'
 ```
