@@ -25,15 +25,17 @@ gobuster dir -u 10.10.250.171 -w /usr/share/wordlists/dirbuster/directory-list-2
 ```
 ![[Pasted image 20240609194252.png]]
 ## Directories
+/wp-content (Status: 301) [Size: 319] [--> http://10.10.250.171/wp-content/]
 
-/wp-content           (Status: 301) [Size: 319] [--> http://10.10.250.171/wp-content/]
-/wp-includes          (Status: 30vulnerability0] [--> htXML-RPC0.10set up171/wp-includes/]
-/wp-admin             (Status: 301) [Size: 317] [--> http://10.10.250.171/wp-admin/]
-/hidden               (Status: 301) [Size: 315] [--> http://10.10.250.171/hidden/]
+/wp-includes (Status: 30vulnerability0] [--> htXML-RPC0.10set up171/wp-includes/]
+
+/wp-admin (Status: 301) [Size: 317] [--> http://10.10.250.171/wp-admin/]
+
+/hidden (Status: 301) [Size: 315] [--> http://10.10.250.171/hidden/]
 
 # Niko Finds
 http://10.10.250.171/xmlrpc.php/
-There might be a vulnerbility with how xmlrpc is setup. Let's try it
+There might be a vulnerability with how XML-RPC is set up. Let's try it
 
 > [!NOTE]
 > The main weaknesses associated with XML-RPC are: Brute force attacks: Attackers try to login to WordPress using xmlrpc.php .
