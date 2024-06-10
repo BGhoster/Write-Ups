@@ -6,10 +6,15 @@ IP address: 10.10.64.128
 nmap -sC -sV 10.10.250.171 -T5
 ```
 ![[Pasted image 20240609193857.png]]
+![Pasted image 20240609193857](https://github.com/BGhoster/Write-Ups/assets/43526966/6f731958-4edc-4420-ba9c-9a21f28a5c53)
+
+
 ```
 nmap -p- -A 10.10.250.171 -T5
 ```
 ![[Pasted image 20240609202648.png]]
+![Pasted image 20240609202648](https://github.com/BGhoster/Write-Ups/assets/43526966/3c27e9d4-23d0-4cca-8a2d-ae46d1dea82e)
+
 ## Open ports
 80: HTTP
 4512: ssh
@@ -24,6 +29,8 @@ Philip
 gobuster dir -u 10.10.250.171 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -t 100
 ```
 ![[Pasted image 20240609194252.png]]
+![Pasted image 20240609194252](https://github.com/BGhoster/Write-Ups/assets/43526966/1146d672-58b9-4d46-8d99-fb766a8419b0)
+
 ## Directories
 /wp-content (Status: 301) [Size: 319] [--> http://10.10.250.171/wp-content/]
 
@@ -53,6 +60,8 @@ Did not find anything with xmlrpc.php
 ### Found credentials 
 **c0ldd:9876543210**
 ![[Pasted image 20240609204402.png]]
+![Pasted image 20240609204402](https://github.com/BGhoster/Write-Ups/assets/43526966/5a0eb63e-28cd-40c2-92e1-150f619f735c)
+
 
 # Getting reverse shell after log-in
 Appearance -> Editor 
@@ -86,6 +95,7 @@ grep -Hrn c0ldd / 2>/dev/null
 - /var/www/html/wp-config.php:22:define('DB_USER', 'c0ldd');
 
 ![[Pasted image 20240609210033.png]]
+![Pasted image 20240609210033](https://github.com/BGhoster/Write-Ups/assets/43526966/fad8129f-ab7d-4f2d-96f7-85984efa1728)
 
 c0ldd:cybersecurity
 
@@ -99,6 +109,8 @@ cat user.txt
 sudo -l
 ```
 ![[Pasted image 20240609210351.png]]
+![Pasted image 20240609210351](https://github.com/BGhoster/Write-Ups/assets/43526966/d3af7755-0fb4-491c-8d7a-13b603b45e9a)
+
 ## VIM
 https://gtfobins.github.io/gtfobins/vim/
 ```
