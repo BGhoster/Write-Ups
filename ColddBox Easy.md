@@ -18,13 +18,6 @@ nmap -p- -A 10.10.250.171 -T5
 ## Open ports
 80: HTTP
 4512: ssh
-## Usernames/passwords
-Hugo
-
-C0ldd:9876543210
-
-Philip
-
 
 # Gobuster
 ```python
@@ -41,6 +34,13 @@ gobuster dir -u 10.10.250.171 -w /usr/share/wordlists/dirbuster/directory-list-2
 /wp-admin (Status: 301) [Size: 317] [--> http://10.10.250.171/wp-admin/]
 
 /hidden (Status: 301) [Size: 315] [--> http://10.10.250.171/hidden/]
+
+## Usernames/passwords (Found from /hidden)
+Hugo
+
+C0ldd:9876543210
+
+Philip
 
 # Niko Finds
 http://10.10.250.171/xmlrpc.php/
