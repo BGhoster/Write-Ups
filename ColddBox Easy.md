@@ -27,7 +27,7 @@ gobuster dir -u 10.10.250.171 -w /usr/share/wordlists/dirbuster/directory-list-2
 ## Directories
 /wp-content (Status: 301) [Size: 319] [--> http://10.10.250.171/wp-content/]
 
-/wp-includes (Status: 30vulnerability0] [--> htXML-RPC0.10set up171/wp-includes/]
+/wp-includes (Status: 301) [Size: 320] [--> http://10.10.250.171/wp-includes/]
 
 /wp-admin (Status: 301) [Size: 317] [--> http://10.10.250.171/wp-admin/]
 
