@@ -35,10 +35,10 @@ gobuster dir -u 10.10.250.171 -w /usr/share/wordlists/dirbuster/directory-list-2
 
 /hidden (Status: 301) [Size: 315] [--> http://10.10.250.171/hidden/]
 
-## Usernames/passwords (Found from /hidden)
+## Usernames (Found from /hidden)
 Hugo
 
-C0ldd:9876543210
+C0ldd
 
 Philip
 
